@@ -1,10 +1,3 @@
-//
-//  MovieDetailViewController.swift
-//  BoxOffice
-//
-//  Created by Tony Jung on 2020/09/23.
-//  Copyright © 2020 com.doyeon. All rights reserved.
-//
 
 import UIKit
 
@@ -25,12 +18,12 @@ class MovieDetailViewController: UIViewController {
  
     }
     
-    func updateUI(){
-        if let movieInfo = viewModel.MovieInfo {
-            print("\(movieInfo.title)")
-            print("\(id)")
-        }
-    }
+ //   func updateUI(){ 사실상 필요없음 착각해서 전 데이터 뿌려준것
+ //       if let movieInfo = viewModel.MovieInfo {
+  //          print("\(movieInfo.title)")
+  //          print("\(id)")
+ //       }
+//    }
     
     func fetchMovieInfo(){
         SearchAPI.search(id) { movie in
@@ -40,7 +33,7 @@ class MovieDetailViewController: UIViewController {
             
                 print("----> director: \(self.movieInfo?.director), \(self.movieInfo?.audience)")
                 MovieDetailInfo.shared.movieInfo = movie
-                self.updateUI()
+              //  self.updateUI()
             }
         }
     }
@@ -59,7 +52,7 @@ class MovieDetailViewController: UIViewController {
     }
 }
 
-class DetailViewModel { //싱글톤 필요!
+class DetailViewModel { //사실상 필요없음 (착각해서 전데이터 임의로 뿌려준것)
     var MovieInfo: Movie?
     
     func update(model: Movie) {
