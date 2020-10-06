@@ -11,7 +11,7 @@ import Kingfisher
 
 class MovieListViewController: UIViewController {
 
-    var movies: [Movie] = [] //mvvc패턴으로 구현해야함
+    var movies: [Movie] = []
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -22,14 +22,27 @@ class MovieListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        ParseAPI.loadMovies { movies in
+        ParseAPI.loadMovies(MovieType.shared.fetchType()) { movies in
              print("몇개? \(movies.count), 첫번째 제목 \(movies.first?.title)")
             DispatchQueue.main.async {
                             self.movies = movies
                             self.collectionView.reloadData()
                         }
         }
+        
+   
     }
+    
+    @IBAction func sortType(_ sender: Any) {
+
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as? MovieDetailViewController
+        if let indexPath = self.collectionView.indexPathsForSelectedItems {
+            let movieInfo = movies[indexPath.first!.item]
+                  vc?.viewModel.update(model: movieInfo)
+              }
+      }
 }
 
 
